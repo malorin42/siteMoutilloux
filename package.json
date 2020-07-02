@@ -1,0 +1,27 @@
+{
+  "name": "siteMoutilloux",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "export": "nuxt export",
+    "serve": "nuxt serve"
+  },
+  "dependencies": {
+    "nuxt": "^2.13.0",
+    "socket.io-client": "^2.3.0"
+  },
+  "devDependencies": {
+    "@babel/runtime-corejs2": "^7.10.4",
+    "@nuxtjs/vuetify": "^1.11.2",
+    "coffee-loader": "^1.0.0",
+    "coffeescript": "^2.5.1",
+    "core-js": "^2.6.11",
+    "node-sass": "^4.14.1",
+    "pug": "^2.0.3",
+    "pug-plain-loader": "^1.0.0",
+    "sass-loader": "^8.0.2"
+  }
+}
