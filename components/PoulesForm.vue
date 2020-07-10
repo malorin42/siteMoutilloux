@@ -2,7 +2,7 @@
     <div class="poules-form-container">
         
         <div class="poules-form-wrapper">
-            <liste-joueurs :allPlayers="playerAvailable"></liste-joueurs>
+            <liste-joueurs :allPlayers="playerAvailable" addMode></liste-joueurs>
             
             <div class="poules-liste-wrapper">
                 <div class="poule-container poule_A">
@@ -42,8 +42,8 @@
                         </li>
                     </ul>
                 </div>
-                <div v-if="nbrPoule === 2" class="form-footer">
-                    <button class="btn" @click="addPoule">Ajouter une poule</button>
+                <div v-if="nbrPoule === 2" class="add-container">
+                    <button class="cross-button" @click="addPoule"></button>
                 </div>
 
                 <div v-if="nbrPoule >= 4" class="poule-container poule_D">
@@ -57,8 +57,8 @@
                         </li>
                     </ul>
                 </div>
-                <div v-if="nbrPoule === 3" class="form-footer">
-                    <button class="btn" @click="addPoule">Ajouter une poule</button>
+                <div v-if="nbrPoule === 3" class="add-container">
+                    <button class="cross-button" @click="addPoule"></button>
                 </div>
                 
             </div>
@@ -103,7 +103,7 @@ export default {
         },
         playerAvailable(){
             return this.tournamentPlayers;
-        }
+        },
     },
     methods: {
         addPoule(){
@@ -134,6 +134,14 @@ export default {
             .liste-poule-wrapper {
                 margin-top: 1rem;
             }
+        }
+
+        .add-container {
+            height: 250px;
+            min-width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
     

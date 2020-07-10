@@ -2,6 +2,9 @@
     <div class="body-section">
         <h1>Bienvenue Au Moutilloux !!!</h1>
 
+        <button class="btn" @click="test(0)">TEST</button>
+        <button class="btn" @click="test(2)">TEST2</button>
+        <div>Résultat : {{data}}</div>
    </div>
 </template>
 
@@ -12,11 +15,21 @@ export default {
     },
     data(){
         return {
+            data: ""
         }
     },
+    created() {
+        this.test(2);
+    },
     methods: {
-        newTournament() {
-            this.$router.push("newTournament")
+        async test(value) {
+            console.log("test")
+            if (!value) {
+                this.data = (await this.$axios.get('/api/users')).data
+            }
+            else {
+                this.data = (await this.$axios.get('/api/users/'+ value)).data
+            }
         }
     }
 }

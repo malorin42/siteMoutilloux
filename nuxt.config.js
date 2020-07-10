@@ -30,6 +30,11 @@ export default {
   serverMiddleware: [
     '~/server/index.js',
   ],
+  server: {
+    port: 8000, // par défaut: 3000
+    host: '0.0.0.0', // par défaut: localhost,
+    timing: false
+  },
   /*
   ** Global CSS
   */
@@ -56,7 +61,15 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios',
+    'nuxt-socket-io'
   ],
+  io: {
+    // Options
+  },
+  axios: {
+    // proxyHeaders: false
+  },
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module

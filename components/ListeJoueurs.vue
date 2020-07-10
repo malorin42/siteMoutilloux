@@ -1,8 +1,9 @@
 <template>
     <div class="list-container">
         <h3 class="step-hint">Liste des Joueurs :</h3>
-        <ul class="list-joueurs">
-            <li v-for="(player, index) in allPlayers" :key="index">{{player.prenom}} {{player.nom}}</li>
+        <div v-if="isAllPlayersEmpty" class="empty-form-text">Aucun joueur sélectionné</div>
+        <ul :class="['list-joueurs', addClass]">
+            <li v-for="(player, index) in allPlayers" :key="index" @click="addPlayer(player)">{{player.prenom}} {{player.nom}}</li>
         </ul>
     </div>
 </template>
@@ -15,8 +16,29 @@ export default {
             default: () => {
                 return [];
             },
-        } 
+        },
+        addMode: {
+            type: Boolean,
+            default: false
+        }
     },
+    computed: {
+        isAllPlayersEmpty() {
+            return this.allPlayers.length === 0
+        },
+        addClass() {
+            return this.addMode ? "add-mode" : "";
+        }
+    },
+    methods: {
+        addPlayer(player) {
+            if (!this.addMode){
+                return;
+            }
+            console.log("player selected: ",player);
+            this.$emit("addPlayer", player);
+        }
+    }
 }
 </script>
 
@@ -35,6 +57,28 @@ export default {
         display: flex;
         flex-direction: column;
         overflow: auto;
+        margin-top: 1rem;
+
+        li {
+            color: #025296;
+        }
+
+        &.add-mode li:hover {
+            cursor: pointer;
+            font-weight: bold;
+            &:after {
+                content: "+";
+                margin-left: 15px;
+                padding: 1px 5px;
+                border-radius: 50%;
+                background: #025296;
+                color: #fff;
+            }
+        }
+    }
+
+    .cross-button {
+        margin-left: 30px;
     }
 }
 

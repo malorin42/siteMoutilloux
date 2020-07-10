@@ -1,6 +1,10 @@
 <template>
     <div class="body-section">
         <h1>Création d'un nouveau Tournois</h1>
+        <div class="top-step" v-if="steps > 0">
+            <arrow-svg v-if="steps > 1" @click="stepBack"></arrow-svg>
+            <arrow-svg v-if="steps < 3" @click="nextStep(steps)" :rotateRight="true"></arrow-svg>
+        </div>
 
         <button class="btn" v-if="steps === 0" @click="newTournament">Créer un nouveau tournois</button>
 
@@ -23,7 +27,7 @@
             ></v-select>
 
             <div class="form-footer">
-                <button class="btn" @click="nextStep(1)">Continuer</button>
+                <button class="btn" :class="isTournamentNameEmpty ? 'btn--disabled' : ''" @click="nextStep(1)">Continuer</button>
             </div>
         </div>
 
@@ -38,7 +42,7 @@
             </div>
 
             <div class="form-footer">
-                <button class="btn" @click="nextStep(2)">Continuer</button>
+                <button class="btn" :class="notEnoughtPlayer ? 'btn--disabled' : ''" @click="nextStep(2)">Continuer</button>
             </div>
             
         </div>
@@ -103,13 +107,14 @@
 import ListeJoueurs from "~/components/ListeJoueurs.vue"
 import NouveauJoueur from "~/components/NewPlayerForm.vue"
 import PoulesForm from "~/components/PoulesForm.vue"
-
+import ArrowSvg from "~/components/Boutton/Arrow.vue"
 
 export default {
     components: {
         'liste-joueurs': ListeJoueurs,
         'nouveau-joueur': NouveauJoueur,
-        'poules-form': PoulesForm
+        'poules-form': PoulesForm,
+        'arrow-svg': ArrowSvg
     },
     props: {
     },
@@ -118,7 +123,7 @@ export default {
             steps: 0,
             tournament: {
                 name: "",
-                type: ""
+                type: "solo_mixe"
             },
             tournamentTypes: [
                 {text: "Solo mixe", value: "solo_mixe"},
@@ -128,13 +133,23 @@ export default {
                 {text: "Double femme", value: "double_f"},
                 {text: "Double homme", value: "double_h"},
             ],
-            selectedPlayer: [],
+            selectedPlayer: [
+            ],
         }
     },
     created(){
         console.log(this.tournamentTypes)
     },
     computed: {
+        isTournamentNameEmpty() {
+            return !this.tournament.name ? true : false;
+        },
+        notEnoughtPlayer(){
+            if (!this.selectedPlayer){
+                return true
+            }
+            return this.selectedPlayer.length <= 5
+        }
     },
     methods: {
         newTournament(){
@@ -166,11 +181,22 @@ export default {
             this.steps++;
         },
         checkStep(step) {
-            return true
+            switch (step) {
+                case 1 : {
+                    return !this.isTournamentNameEmpty;
+                }
+                case 2 : {
+                    return !this.notEnoughtPlayer;
+                }
+            }
+            return false
         },
         addPlayerToList(newPlayer) {
             newPlayer.id = this.selectedPlayer.length + 1;
             this.selectedPlayer.push(newPlayer);
+        },
+        stepBack() {
+            this.steps--;
         }
     }
 }
@@ -182,7 +208,7 @@ export default {
         padding: 2rem;
         height: 100%;
         h1 {
-            margin-bottom: 2rem;
+            margin: 2rem auto 5rem auto;
         }
     }
     .step-status {
@@ -191,20 +217,32 @@ export default {
     }
 
    .section-slot {
+        height: 100%;
+        margin: auto;
+        width: 80%;
        .step-hint {
             font-size: 1.8rem;
             font-weight: bold;
             margin-top: 1rem;
        }
-   }
 
-   .section-slot {
-        height: 100%;
+       &.step--2 {
+           width: 100%;
+       }
    }
-
    .step-form {
         display: flex;
         margin: 3rem 0;
         max-height: 65vh;
+   }
+
+   .top-step {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+
+        .arrow-svg.right {
+            margin-left: auto;
+        }
    }
 </style>

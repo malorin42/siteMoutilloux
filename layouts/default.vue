@@ -4,6 +4,7 @@
 
             <nuxt-link to="/">Accueil</nuxt-link>
             <nuxt-link to="/NewTournament">Créer un tournois</nuxt-link>
+            <nuxt-link to="/test/coucou">Test</nuxt-link>
             <!-- <router-link to="/Login">Go to Login</router-link> -->
 
         </div>
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+
 export default {
   data () {
     return {
@@ -54,9 +56,9 @@ body {
 
 .content-section {
     margin: auto;
-    box-shadow: 0 5px 36.4px 3.6px rgba(109,93,175,.3);
+    // box-shadow: 0 5px 36.4px 3.6px rgba(109,93,175,.3);
     height: 100%;
-    max-width: 940px;
+    min-width: 60%;
 }
 
 .form-footer {
@@ -108,6 +110,61 @@ body {
     font-weight: bold;
 }
 
+.empty-form-text {
+    margin: auto;
+    font-style: italic;
+}
+
+.cross-button {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    padding: 1rem;
+    background-color: #025296;
+    border-radius: 50%;
+    box-shadow: 0 5px 36.4px 3.6px rgba(109,93,175,.3);
+    transition: 0.2s all;
+
+    &:before {
+        content: "+";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: absolute;
+        color: #fff;
+        font-size: 30px;
+        line-height: 28px;
+    }
+
+    &:hover {
+        box-shadow: 0 5px 36.4px 3.6px rgba(109,93,175,.6);
+        transform: translateY(-2px);
+        transition: 0.2s all;
+    }
+}
+
+.add-link {
+    position: relative;
+    color: #025296;
+
+    &:before {
+        content: "+";
+        top: 0;
+        left: -10px;
+        position: absolute;
+        color: #025296;
+        // font-size: 30px;
+        // line-height: 28px;
+    }
+}
+
+}
+
+button {
+    &:focus {
+        outline: none;
+    }
 }
 
 </style>
