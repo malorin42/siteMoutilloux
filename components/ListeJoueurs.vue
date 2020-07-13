@@ -1,7 +1,7 @@
 <template>
     <div class="list-container">
         <h3 class="step-hint">Liste des Joueurs :</h3>
-        <div v-if="isAllPlayersEmpty" class="empty-form-text">Aucun joueur sélectionné</div>
+        <div v-if="isAllPlayersEmpty" class="empty-form-text">{{emptyText}}</div>
         <ul :class="['list-joueurs', addClass]">
             <li v-for="(player, index) in allPlayers" :key="index" @click="addPlayer(player)">{{player.prenom}} {{player.nom}}</li>
         </ul>
@@ -28,6 +28,9 @@ export default {
         },
         addClass() {
             return this.addMode ? "add-mode" : "";
+        },
+        emptyText(){
+            return this.addMode ? 'Aucun joueurs disponible' : 'Aucun joueur sélectionné'
         }
     },
     methods: {

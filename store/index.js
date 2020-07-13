@@ -8,6 +8,7 @@
 export const state = () => ({
       newTournois: null,
       newPlayerList: [],
+      poulesData: {},
     });
 
     export const mutations= {
@@ -16,6 +17,9 @@ export const state = () => ({
       },
       savePlayerList(state, data){
         state.newPlayerList = data
+      },
+      savePoulesData(state, data){
+        state.poulesData = data
       },
     }
     export const actions={
@@ -26,6 +30,9 @@ export const state = () => ({
         }
         else if (step === 2){
           commit("savePlayerList", data)
+        }
+        else if (step === 3){
+          commit("savePoulesData", data)
         }
       }
     }

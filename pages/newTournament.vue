@@ -47,11 +47,12 @@
             
         </div>
 
+        <!-- STEP [3] -->
         <div class="section-slot step step--3" v-if="steps === 3">
             <div class="step-status">Etape {{steps}} / 3</div>
             <div class="step-hint">Construisez les poules !</div>
 
-            <poules-form></poules-form>
+            <poules-form @updatePoules="updatePoules"></poules-form>
 
             <div class="form-footer">
                 <button class="btn" @click="nextStep(3)">Terminer</button>
@@ -135,6 +136,9 @@ export default {
             ],
             selectedPlayer: [
             ],
+            poules: {
+
+            }
         }
     },
     created(){
@@ -175,6 +179,9 @@ export default {
             else if (step === 2){
                 data = JSON.parse(JSON.stringify(this.selectedPlayer))
             }
+            else if (step === 3){
+                data = JSON.parse(JSON.stringify(this.poules))
+            }
             this.$store.dispatch("saveStepProgress", {step: step, data: data})
 
             // 3)
@@ -188,6 +195,9 @@ export default {
                 case 2 : {
                     return !this.notEnoughtPlayer;
                 }
+                case 3 : {
+                    return true;
+                }
             }
             return false
         },
@@ -197,6 +207,10 @@ export default {
         },
         stepBack() {
             this.steps--;
+        },
+        updatePoules(newValue){
+            console.log("nouvelle valeur de poules : ",newValue)
+            this.poules = newValue;
         }
     }
 }
